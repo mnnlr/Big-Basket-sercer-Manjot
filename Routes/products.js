@@ -52,6 +52,15 @@ ProductRouter.post("/addProduct", multiple, async (req, res) => {
 });
 
 
+ProductRouter.get("/getallproducts", async(req,res)=>{
+  try {
+      const products = await Product.find({})
+       return res.json({products: products})
+  } catch (error) {
+      return res.status(403).json("error while gettign products")
+  }
+})
+
 
 
 module.exports = ProductRouter;

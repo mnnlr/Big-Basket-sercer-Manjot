@@ -1,17 +1,18 @@
 const express = require("express");
 const cors= require("cors")
 const Auth = require("../Middleware/AuthMiddleware");
-const { Cart } = require("../db");
+const { Wish } = require("../db");
+
 
 
 const app =express();
 app.use(cors());
 app.use(express.json())
 require("dotenv").config()
-const cartRouter = express.Router()
+const wishRouter = express.Router()
 
 
-cartRouter.post("/addcart", Auth, async (req, res) => {
+wishRouter.post("/addwish", Auth, async (req, res) => {
     const body = req.body;
     const userId = req.userId;
 
@@ -21,7 +22,7 @@ cartRouter.post("/addcart", Auth, async (req, res) => {
 
     try {
      
-        const Check = await Cart.findOne({
+        const Check = await Wish.findOne({
             category: body.category,
             userId: userId
         });
@@ -30,7 +31,7 @@ cartRouter.post("/addcart", Auth, async (req, res) => {
             return res.status(403).json({ msg: "Item already in cart" });
         }
 
-        const item = await Cart.create({
+        const item = await Wish.create({
           
             price: body.price,
             category: body.category,
@@ -39,17 +40,17 @@ cartRouter.post("/addcart", Auth, async (req, res) => {
            
         });
 
-        return res.json({ msg: "Item added to cart", data: item });
+        return res.json({ msg: "Item added to Wish", data: item });
    } catch (error) {
-    return res.status(403).json({msg:"error while add cart"})
+    return res.status(403).json({msg:"error while add Wish"})
    }
 })
 
 
-cartRouter.get("/cart", Auth, async (req, res) => {
+wishRouter.get("/Wish", Auth, async (req, res) => {
     const userId = req.userId;
     try {
-        const items = await Cart.find({ userId: userId });
+        const items = await Wish.find({ userId: userId });
         if (!items) {
             return res.status(404).json({ message: "No items found." });
         }
@@ -60,4 +61,4 @@ cartRouter.get("/cart", Auth, async (req, res) => {
     }
 }); 
 
-module.exports=cartRouter
+module.exports=wishRouter

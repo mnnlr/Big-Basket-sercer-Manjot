@@ -39,7 +39,7 @@ userRouter.post("/signup",async(req,res)=>{
             username:body.username,
             email:body.email,
             password:bcrypt.hashSync(body.password,10),
-            isadmin:false
+            // isadmin:false
         })
         console.log(response)
      const token = jwt.sign(response._id.toHexString(),process.env.SECRET)

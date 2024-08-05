@@ -40,11 +40,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  isAdmin: {
-    type: Boolean,
-    required: true
+  // isAdmin: {
+  //   type: Boolean,
+  //   required: true
     
-  }
+  // }
 });
 const User = mongoose.model("User", userSchema);
 
@@ -54,14 +54,6 @@ const cartSchema= new mongoose.Schema({
     type: String,
     required: true
 
-  },
-  productId: {
-    type: String,
-    required: true
-  },
-  title:{
-    type: String,
-    required: true
   },
   price:{
     type: Number,
@@ -79,6 +71,28 @@ const cartSchema= new mongoose.Schema({
 });
 
 const Cart = mongoose.model("cart",cartSchema)
+
+const wishSchema= new mongoose.Schema({
+  userId: {
+    type: String,
+    required: true
+
+  },
+  price:{
+    type: Number,
+    required: true
+    
+  },
+  category:{
+    type: String,
+    required: true
+  },
+  image:{
+    type: String,
+    required: true
+  }
+});
+const Wish = mongoose.model("wish",wishSchema)
 
 
 const productSchema = new mongoose.Schema({
@@ -111,4 +125,4 @@ const Product = mongoose.model("Product", productSchema);
 
 // const Admin = mongoose.model("Admin",adminSchema)
 
-module.exports = { User, Product,storage,Cart};
+module.exports = { User, Product,storage,Cart,Wish};
