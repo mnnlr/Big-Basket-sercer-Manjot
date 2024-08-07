@@ -55,6 +55,11 @@ const cartSchema= new mongoose.Schema({
     required: true
 
   },
+  productId: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Product', 
+    required: true
+  },
   price:{
     type: Number,
     required: true
@@ -78,10 +83,19 @@ const wishSchema= new mongoose.Schema({
     required: true
 
   },
+  productId: [{
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Product',
+    required: true
+  }],
   price:{
     type: Number,
     required: true
     
+  },
+  discountprice:{
+    type: Number,
+    required: true
   },
   category:{
     type: String,

@@ -10,7 +10,6 @@ require("dotenv").config()
       req.userId= token
       next();
     }
-   
     } catch (error) {
     return res.status(403).json({msg:"Cannot perform operation"})
         
