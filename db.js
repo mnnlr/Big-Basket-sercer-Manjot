@@ -72,10 +72,77 @@ const cartSchema= new mongoose.Schema({
   image:{
     type: String,
     required: true
+  },
+  quantity: {
+    type: Number,
+    required: true,
+    min: 1 
   }
 });
 
 const Cart = mongoose.model("cart",cartSchema)
+
+const orderItemSchema = new mongoose.Schema({
+  
+  price:{
+    type: Number,
+    required: true
+    
+  },
+  category:{
+    type: String,
+    required: true
+  },
+  // image:{
+  //   type: String,
+  //   required: true
+  // },
+  quantity: {
+    type: Number,
+    required: true,
+    min: 1 
+  }
+});
+
+const orderSchema = new mongoose.Schema({
+
+  name:{
+    type: String,
+    required: true
+  },
+  email:{
+    type: String,
+    required: true
+  },
+  address:{
+    type: String,
+    required: true
+  },
+  phone:{
+    type: String,
+    required: true
+
+  },
+  paymentStatus:{
+    type:String,
+     enum:["pending","completed","failed"],
+    default:"pending"
+   
+},
+paymentMethod:{
+    type:String,
+    enum:["card"],
+    default:"card"
+},
+
+// paymentToken:String,
+// paymentMode:String,
+// currency:String,
+paymentTime:Date,
+// deliveryTime:Date,
+  orders: [orderItemSchema] 
+});
+const Order = mongoose.model('Order', orderSchema);
 
 const wishSchema= new mongoose.Schema({
   userId: {
@@ -139,4 +206,4 @@ const Product = mongoose.model("Product", productSchema);
 
 // const Admin = mongoose.model("Admin",adminSchema)
 
-module.exports = { User, Product,storage,Cart,Wish};
+module.exports = { User, Product,storage,Cart,Wish,Order};
